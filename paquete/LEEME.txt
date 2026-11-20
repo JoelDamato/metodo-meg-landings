@@ -1,0 +1,8 @@
+Paquete para el programador - MEG (Matías Randazzo)
+
+html_finales/  Las 3 páginas aprobadas (fuente de verdad del diseño y de los textos).
+textos/        Los mismos textos en .txt, para copiar sin código.
+fotos_casos/   Foto de cada dueño con Matías (formato 16:9, ya recortadas).
+logos/         Logos circulares (PNG con fondo transparente).
+foto_matias/   Foto de Matías para "Quién está detrás".
+Falta: logo real de Northbus (hoy es un círculo con el nombre escrito) y video de la VSL (YouTube: GMndx1EPlC0).
