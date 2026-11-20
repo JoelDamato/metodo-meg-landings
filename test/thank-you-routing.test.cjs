@@ -1,0 +1,5 @@
+const {test}=require('node:test'),assert=require('node:assert/strict');
+const {resolve,confirmedDestination}=require('../web/thank-you-routing.js');
+test('maps all current form choices to the matching industry',()=>{for(const [name,slug] of [['Reventa minorista','reventa'],['Reventa mayorista / distribución','reventa'],['Importador','reventa'],['Fabricante','fabricante'],['Gastronómico','gastronomia'],['Servicios logísticos','servicios'],['Servicios estéticos','servicios']])assert.equal(resolve(name),'/gracias/'+slug)});
+test('normalizes accents and rejects unknown or hostile paths',()=>{assert.equal(resolve(' GASTRONÓMICO '),'/gracias/gastronomia');for(const v of ['',null,'Otros','https://evil.test','//evil.test'])assert.equal(resolve(v),null)});
+test('only a confirmed real appointment may select a destination',()=>{for(const b of [null,{}, {confirmed:false,appointmentId:'abc'}, {confirmed:true}, {confirmed:true,appointmentId:''}])assert.equal(confirmedDestination(b,'Fabricante'),null);assert.equal(confirmedDestination({confirmed:true,appointmentId:'abc'},'Fabricante'),'/gracias/fabricante')});

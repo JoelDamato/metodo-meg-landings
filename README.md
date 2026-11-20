@@ -30,3 +30,8 @@ Dominio previsto: `metodo.matirandazzook.com`. No modificar el dominio existente
 CNAME `metodo` → `e74e3a60385436fb.vercel-dns-017.com.`
 TXT `_vercel` → `vc-domain-verify=metodo.matirandazzook.com,14593c7a4ae4e6f02d2d`
 Conservar los demás registros existentes. Verificar dominio y HTTPS después de propagación.
+
+### Redirección por rubro preparada (20/11)
+`web/thank-you-routing.js` mapea las opciones exactas del formulario. `form-routing.js` actualiza un campo oculto `thank_you_path` al elegir rubro. No redirige al completar datos ni al usar la agenda simulada. Al conectar la agenda real, el backend debe validar la cita y el rubro; recién entonces el adaptador podrá habilitar `MEG_BOOKING_ENABLED` y llamar `MEGRedirectAfterBooking` con confirmación e ID de cita. Esta marca del navegador no es una validación de seguridad: la confirmación debe venir del servidor. Los rubros desconocidos no se adjudican por defecto. Pruebas: `node --test test/thank-you-routing.test.cjs`.
+
+Miniaturas de los 30 testimonios obtenidas de los players Vturb correspondientes y verificadas; URLs en `config/video-thumbnails.json`. No son imágenes genéricas.
