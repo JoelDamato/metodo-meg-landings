@@ -10,7 +10,7 @@ Sitio público de Matías Randazzo. Repositorio de trabajo para Joel, Walter y M
 - `/gracias/fabricante`, `/gracias/reventa`, `/gracias/gastronomia`, `/gracias/servicios`: contenido por rubro preparado. Aún no conectado al evento de reserva real.
 
 ## Desarrollo y publicación
-Instalar `scripts/requirements.txt` en un entorno Python y ejecutar `python scripts/build-preview.py`. Los archivos estáticos se generan en `dist/`. Publicar exclusivamente `dist/` en el proyecto Vercel `meg-landings-wally` del equipo `joeldamatos-projects`.
+Instalar `scripts/requirements.txt` en un entorno Python y ejecutar `python scripts/build-preview.py`. Los archivos estáticos se generan en `dist/`. Vercel está conectado a este repo: un push a `main` publica `dist/`. Para publicar manualmente, ejecutar Vercel desde la raíz del repo (Root Directory configurado en `dist`). Proyecto Vercel `meg-landings-wally` del equipo `joeldamatos-projects`.
 
 Dominio previsto: `metodo.matirandazzook.com`. No modificar el dominio existente `meg.matirandazzook.com`.
 
