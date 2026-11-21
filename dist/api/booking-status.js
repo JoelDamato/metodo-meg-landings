@@ -7,3 +7,4 @@ module.exports=async function(req,res){res.setHeader('Cache-Control','no-store')
  return res.json({confirmed:!!found,path:found?(routing.resolve(r.rubro)||'/gracias/general'):null});
  }catch{return res.status(400).json({confirmed:false});}
 };
+module.exports.bookingCreatedAt=bookingCreatedAt;

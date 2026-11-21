@@ -23,3 +23,11 @@ Agenda creada por instrucción de Jota: Postulación MEG | Landings sin scoring 
 /api/register devuelve la agenda nueva únicamente para Aplica. Formulario integrado muestra el calendario con contacto y UTM precargados. La asignación de closer ocurre al reservar, según disponibilidad y prioridades de GHL, no al completar la postulación. API booking-status verifica la cita en la nueva agenda antes de redirigir a la gracias por rubro; Otro tiene gracias general.
 
 Verificado en producción: Aplica habilita agenda nueva; No aplica no la habilita; registro sin reserva devuelve confirmed=false; agenda muestra horarios y conserva asignación al miembro del equipo. No se creó una cita real de prueba: creación final, notificaciones y redirección posterior a reserva requieren validación con una reserva real. Los workflows exclusivos de calendarios A–E no se copiaron ni editaron.
+
+## Test completo de reserva — 21/11
+
+Se ejecutó desde /costos con UTM QA y contacto de prueba en DND. La reserva real QySOjGLf7zlKcXHTJ97E confirmó asignación a Patricia Conti y conservación de las respuestas/UTM. Detectó error de zona horaria al validar dateAdded: GHL devuelve hora local de Buenos Aires sin offset. Corregido y publicado en 1205105.
+
+Segunda reserva ylCzJ5Cppp0qqO0y8R0Y: confirmada en GHL, asignada a Patricia y navegador redirigido automáticamente a /gracias/gastronomia. Las dos citas fueron canceladas y el horario del 23/11 17:00 volvió a estar disponible. No son ventas ni leads reales.
+
+Avisos: API específica de notificaciones confirma booked y confirmation, inApp, activos para assigned_user (igual que agenda original). No se verificó recepción en la sesión de Patricia ni entrega de invitación de Google. El contacto QA está en DND y usa correo de ejemplo; este test no acredita recepción externa por parte del lead. Los avisos de workflows particulares de A–E siguen sin copiarse.

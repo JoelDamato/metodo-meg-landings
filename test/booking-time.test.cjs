@@ -1,0 +1,2 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');const {bookingCreatedAt}=require('../server/booking-status.cjs');
+test('GHL Buenos Aires timestamps match UTC creation time for confirmation',()=>{assert.equal(bookingCreatedAt('2026-11-21 10:18:04'),Date.parse('2026-11-21T13:18:04Z'));assert.equal(bookingCreatedAt('2026-11-21T13:18:04Z'),Date.parse('2026-11-21T13:18:04Z'));assert.equal(bookingCreatedAt('2026-11-21T10:18:04-03:00'),Date.parse('2026-11-21T13:18:04Z'));assert.ok(Number.isNaN(bookingCreatedAt('')));});
