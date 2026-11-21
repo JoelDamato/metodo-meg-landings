@@ -40,3 +40,5 @@ for slug,label,code in [('fabricante','Fabricación','fab'),('reventa','Reventa 
  (out/('gracias-'+slug+'.html')).write_text(page)
 v=json.loads((out/'vercel.json').read_text());v['rewrites']=[{'source':'/gracias/'+x,'destination':'/gracias-'+x} for x in ['fabricante','reventa','gastronomia','servicios']];(out/'vercel.json').write_text(json.dumps(v))
 print('Refined visual variants, attribution and thank-you routes. Booking remains disabled pending calendar selection.')
+import runpy
+runpy.run_path(str(root/'scripts/native-release.py'))

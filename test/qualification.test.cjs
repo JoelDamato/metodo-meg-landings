@@ -1,0 +1,3 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');const q=require('../web/qualification');const config=require('../config/ghl-questions.json');
+test('every exact GHL revenue/system combination follows binary rule',()=>{const rev=config.fields.find(f=>f.id==='PddCUxnULUR7V2KwinRk').picklistOptions;const sys=config.fields.find(f=>f.id==='2sg2SekJNPo7FQMGrGJS').picklistOptions;assert.deepEqual(rev,q.revenues);assert.deepEqual(sys,q.systems);for(let r=0;r<rev.length;r++)for(let s=0;s<sys.length;s++)assert.equal(q.classify(rev[r],sys[s]),r<4&&[0,1,3].includes(s)?'aplica':'no_aplica');});
+test('missing and unknown answers never qualify',()=>{assert.equal(q.classify('',q.systems[0]),null);assert.equal(q.classify(q.revenues[0],'inventado'),null);});

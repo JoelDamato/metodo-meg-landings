@@ -1,11 +1,15 @@
-# Formulario nativo — aislamiento del circuito actual
+# Formulario nativo MEG — estado
 
-Pedido de Jota 20/11: formulario propio con score idéntico a GHL y página de gracias según rubro. La página y las automatizaciones actuales deben seguir funcionando sin cambios; trabajar sólo en la copia nueva.
+Copia independiente. El sitio original y GHL no fueron modificados.
 
-No modificar el formulario ni el workflow original. Leer preguntas, opciones y ponderaciones; duplicar los recursos que requieran adaptación. No publicar un score aproximado.
+Preguntas y opciones copiadas de la encuesta publicada rbMEYfSbnkPn2B4LMyn1, que usa el sitio original; fuente y opciones en config/ghl-questions.json.
 
-Pendiente de lectura: workflow BS | Actualizacion Score (aeac0ce9-d14c-4ed6-92a6-2cd09a5b9d20). El API oficial disponible no devuelve su detalle; editor quedó en blanco y se retomó una reunión en Chrome. No hubo mutaciones en GHL.
+Sin scoring. Aplica si elige una banda desde «Entre 30.000 y 50.000 USD al mes» en adelante Y una opción que indique que tiene sistema (incluye tenerlo pero casi no usarlo). Excel solo no aplica. El rango no distingue exactamente 30.000 de 30.001; se clasifica por la banda existente de GHL.
 
-Pendiente de Walter: calendario destino. Hay varios activos; no deducir por nombre. No conectar el botón de reserva a uno arbitrario.
+Preguntas restantes se conservan, pero no alteran esta regla de dos condiciones. La pregunta de detalle de Excel se muestra si la respuesta de sistema menciona Excel.
 
-Las rutas /gracias/fabricante, /gracias/reventa, /gracias/gastronomia y /gracias/servicios ya existen. Deben mostrarse al confirmar la cita real, no por completar el formulario ni por click. Mapear el rubro de las opciones reales; conservar atribución de este registro, no reciclar campaña anterior. El envío a GHL y la persistencia del score deben validarse en servidor, no confiar en un score enviado desde el navegador.
+Pendiente Walter: agenda definitiva y equipo de closers del reparto. Hasta entonces no se guardan contactos, no se crean citas ni se activa reparto. La pantalla lo informa expresamente.
+
+Conectar mediante servidor: validar respuestas; persistir contacto y UTM; obtener confirmación de cita real y closer desde GHL; solo entonces habilitar redirección por rubro. No confiar en flags del navegador como seguridad.
+
+Rubro «Otro» requiere destino general antes de activar reservas; no inferir industria. Las páginas de gracias por rubro tienen el video de preparación del sitio original y testimonios específicos.
