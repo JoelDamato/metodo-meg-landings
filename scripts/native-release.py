@@ -58,3 +58,5 @@ for p in out.glob('gracias-*.html'):
  main.append(BeautifulSoup('<h2>Seguí aprendiendo sobre administración, costos y gestión</h2><div class="ty-cases">'+''.join('<iframe class="vsl-inline" loading="lazy" title="Clase práctica para PYMES '+str(i+1)+'" src="https://www.youtube-nocookie.com/embed/'+v+'" allowfullscreen></iframe>' for i,v in enumerate(['Dfv6N-ZXtJM','8qNd-u_4zTA']))+'</div>','html.parser'))
  p.write_text(str(s))
 print('Exact GHL survey options, binary qualification and ad variants prepared. Booking remains disconnected.')
+import runpy
+runpy.run_path(str(root/'scripts/connect-release.py'))
