@@ -1,8 +1,9 @@
 {
   "domain": "metodo.matirandazzook.com",
-  "calendarUrl": null,
-  "bookingStatus": "pending_walter_calendar",
+  "calendarUrl": "https://api.leadconnectorhq.com/widget/booking/lPdipJGxlyfyyZFPH7wq",
+  "bookingStatus": "active_no_scoring",
   "vslVturbPlayerId": null,
   "vslYoutubeId": "GMndx1EPlC0",
-  "vturbAccountId": "f2731136-98ca-448a-966f-e779f8cf0481"
+  "vturbAccountId": "f2731136-98ca-448a-966f-e779f8cf0481",
+  "calendarId": "lPdipJGxlyfyyZFPH7wq"
 }
