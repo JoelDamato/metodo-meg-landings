@@ -19,6 +19,12 @@ for route in ['metodo','metodomeg','reservas']:
   if "var tel=$('tel')" in text:
    start=text.index("var tel=$('tel')")
    script.string=text[:start]+'})();'
+ for textnode in list(s.find_all(string=True)):
+  if textnode.parent.name in ['script','style']:continue
+  replacements={'Agenda abierta':'Aplicación MEG','Elegí día y horario':'Conocé si tu empresa aplica','agenda.matirandazzook.com':'Método Acelerador de Ganancias','Vista de prueba: horarios de ejemplo. No crea reservas ni envía datos.':'Formulario en preparación. No crea reservas ni envía datos.'}
+  value=str(textnode)
+  for before,after in replacements.items():value=value.replace(before,after)
+  if value!=str(textnode):textnode.replace_with(value)
  old=s.find('form');old.replace_with(BeautifulSoup(form,'html.parser'))
  for ident in ['cal','final']:
   el=s.find(id=ident)
