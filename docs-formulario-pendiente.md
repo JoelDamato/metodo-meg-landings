@@ -15,3 +15,11 @@ Implementado /api/register: validación del servidor y upsert en GHL, UTM en cam
 Rubro «Otro» requiere destino general antes de activar reservas; no inferir industria. Las páginas de gracias por rubro tienen el video de preparación del sitio original y testimonios específicos.
 
 Formularios integrados en /, /finanzas, /costos, /rentabilidad, /metodo y /metodomeg. /reservas redirige a /metodomeg#agendar. Prueba real con contacto QA MEG en DND: creación y reentrada sin duplicado; respuestas y cinco UTM verificadas por lectura de GHL.
+
+## Actualización 21/11 — agenda propia conectada
+
+Agenda creada por instrucción de Jota: Postulación MEG | Landings sin scoring (lPdipJGxlyfyyZFPH7wq). Reemplaza la dependencia de confirmación de Walter indicada arriba. Mismos cuatro usuarios, prioridades y RoundRobin_OptimizeForAvailability que la agenda A; sin grupo/categoría A, sin cálculo de scoring. La agenda A fue leída antes/después y permaneció idéntica.
+
+/api/register devuelve la agenda nueva únicamente para Aplica. Formulario integrado muestra el calendario con contacto y UTM precargados. La asignación de closer ocurre al reservar, según disponibilidad y prioridades de GHL, no al completar la postulación. API booking-status verifica la cita en la nueva agenda antes de redirigir a la gracias por rubro; Otro tiene gracias general.
+
+Verificado en producción: Aplica habilita agenda nueva; No aplica no la habilita; registro sin reserva devuelve confirmed=false; agenda muestra horarios y conserva asignación al miembro del equipo. No se creó una cita real de prueba: creación final, notificaciones y redirección posterior a reserva requieren validación con una reserva real. Los workflows exclusivos de calendarios A–E no se copiaron ni editaron.
