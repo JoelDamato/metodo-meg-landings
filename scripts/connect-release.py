@@ -37,3 +37,4 @@ v=json.loads((out/'vercel.json').read_text());v['rewrites'].append({'source':'/g
 
 import runpy
 runpy.run_path(str(root/"scripts/corta-release.py"))
+runpy.run_path(str(root/"scripts/pixel-release.py"))

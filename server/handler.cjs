@@ -16,7 +16,7 @@ module.exports=async function(req,res){
  const url=new URL('https://api.leadconnectorhq.com/widget/booking/lPdipJGxlyfyyZFPH7wq');
  for(const [key,value] of Object.entries({first_name:p.data.firstName,last_name:p.data.lastName,email:p.data.email,phone:p.data.phone,contact_id:d.contact.id}))url.searchParams.set(key,value);
  for(const key of ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','utm_id','fbclid','gclid'])if(typeof b[key]==='string'&&b[key])url.searchParams.set(key,b[key].slice(0,500));
- const receipt=Buffer.from(JSON.stringify({id:d.contact.id,rubro:b.auI2TkFngL0NXTEDjMiy,at:Date.now()})).toString('base64url');
+ const receipt=Buffer.from(JSON.stringify({id:d.contact.id,rubro:b.auI2TkFngL0NXTEDjMiy,q:p.quality?1:0,at:Date.now()})).toString('base64url');
  const signature=crypto.createHmac('sha256',process.env.MEG_GHL_API_KEY).update(receipt).digest('base64url');
  return res.status(200).json({ok:true,qualification:p.result,bookingEnabled:enabled,bookingUrl:enabled?url.href:null,receipt:enabled?receipt+'.'+signature:null});
  }catch{console.error('GHL registration unavailable');return res.status(502).json({error:'No pudimos confirmar el registro. Intentá nuevamente.'});}
