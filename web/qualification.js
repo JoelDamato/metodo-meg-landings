@@ -14,7 +14,7 @@
   return 'aplica';
  }
  // «Aplica +» = lead de calidad para el evento Schedule del pixel: aplica y tiene capital para invertir
- // (1.500, 3.500-4.500 u 8.000-15.000). Propuesta de Walter del 24-11; confirmar antes de publicar.
+ // (1.500, 3.500-4.500 u 8.000-15.000). Confirmado por Walter el 24-11-2026.
  function quality(result,capital){return result==='aplica'&&capitals.slice(1).includes(capital);}
  return {classify,quality,revenues,systems,excelAnswers,capitals};
 });
