@@ -48,6 +48,9 @@ for route,(title,subtitle) in variants.items():
   s.h1.clear();s.h1.append(a);em=s.new_tag('em');em.string=hl;s.h1.append(em);s.h1.append(b)
   video=s.select_one('#video')
   for el in video.select(':scope > .eyebrow, :scope > h2'):el.decompose()
+  # VSL por vturb (código que pasó Walter), así no queda el link de YouTube.
+  site=json.loads((root/'config/site.json').read_text());vid=site['vslVturbPlayerId']
+  video.select_one('iframe.vsl-inline').replace_with(BeautifulSoup('<vturb-smartplayer id="vid-'+vid+'" style="display:block;margin:0 auto;width:100%"><div class="vturb-player-placeholder" style="position:relative;width:100%;padding:56.25% 0 0;z-index:0;background-color:black"></div></vturb-smartplayer><script async src="https://scripts.converteai.net/'+site['vturbAccountId']+'/players/'+vid+'/v4/player.js"></script>','html.parser'))
  hero=s.select_one('.hero');p=hero.find('p') if hero else None
  if p:p.string=subtitle
  for a in s.select('a[href]'):
