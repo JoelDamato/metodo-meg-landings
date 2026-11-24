@@ -11,7 +11,7 @@ function payload(b){
  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||!str(b.first_name,100)||!str(b.last_name,100))throw Error('Completá nombre, apellido y email válido.');
  const customFields=[];
  for(const f of questions){const value=str(b[f.id]);const excel=f.id==='DKxaXQRPf3AdTwIqAXJl';const needsExcel=/Excel/.test(b['2sg2SekJNPo7FQMGrGJS']||'');if(excel&&!needsExcel)continue;if(!f.picklistOptions.includes(value))throw Error('Completá las respuestas del formulario.');customFields.push({id:f.id,field_value:f.type==='multiple_options'?[value]:value});}
- const result=classify(b.PddCUxnULUR7V2KwinRk,b['2sg2SekJNPo7FQMGrGJS']);if(!result)throw Error('Respuestas inválidas.');
+ const result=classify(b.PddCUxnULUR7V2KwinRk,b['2sg2SekJNPo7FQMGrGJS'],b.DKxaXQRPf3AdTwIqAXJl);if(!result)throw Error('Respuestas inválidas.');
  const landing=allowedPaths.includes(b.landing_path)?b.landing_path:'/';
  const url=new URL('https://metodo.matirandazzook.com'+landing);
  for(const k of ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','utm_id','fbclid','gclid','wbraid','gbraid']){const v=str(b[k]);if(v)url.searchParams.set(k,v);}
