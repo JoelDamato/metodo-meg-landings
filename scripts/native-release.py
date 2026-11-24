@@ -37,7 +37,7 @@ for name in ['qualification.js','native-form.js']:shutil.copyfile(root/'web'/nam
 # Keep each campaign's message and attribution distinct.
 base=(out/'finanzas.html').read_text()
 variants={
- 'finanzas':('Ordená las finanzas de tu empresa y tomá decisiones con números claros','Conocé dónde ganás, dónde perdés y cuánto dinero queda realmente en tu negocio.'),
+ 'finanzas':('Profesionalizá las finanzas de tu empresa y hacela entre un 5 y un 15% más rentable en menos de 2 meses.','Conocé dónde ganás, dónde perdés y cuánto dinero queda realmente en tu negocio.'),
  'costos':('Conocé tus costos reales y dejá de perder margen sin verlo','Identificá qué productos y gastos se llevan tu rentabilidad para decidir con información.'),
  'rentabilidad':('Encontrá oportunidades para mejorar la rentabilidad sin vender más','Revisá tus precios, costos y márgenes con el Método Acelerador de Ganancias.')}
 for route,(title,subtitle) in variants.items():
