@@ -34,3 +34,6 @@ p=out/'api/booking-status.js';p.write_text(p.read_text().replace("require('./tha
 shutil.copyfile(root/'server/thank-you-routing.cjs',out/'server/thank-you-routing.cjs')
 s=BeautifulSoup((out/'gracias-servicios.html').read_text(),'html.parser');s.select_one('.ty-cases').decompose();s.title.string='Próximos pasos | MEG';pill=s.select_one('.pill');pill.string='Tu próxima llamada';(out/'gracias-general.html').write_text(str(s))
 v=json.loads((out/'vercel.json').read_text());v['rewrites'].append({'source':'/gracias/general','destination':'/gracias-general'});(out/'vercel.json').write_text(json.dumps(v))
+
+import runpy
+runpy.run_path(str(root/"scripts/testimonios-release.py"))
