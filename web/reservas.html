@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agendá tu llamada de diagnóstico | MEG</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+<!-- Diseño y funcionamiento: maqueta «Reservas MEG suave» de Walter (25-11-2026), SOL-261125-16. -->
+<style>
+:root{--navy-900:#1a3a9e;--royal:#1d4ed8;--blue:#2563eb;--ink:#0b1220;--text:#566074;--line:#dfe5f4;--green:#22c55e;--red:#e11d2e;
+--f-display:'Poppins',system-ui,sans-serif;--f-body:'Inter',system-ui,sans-serif;--f-mono:'JetBrains Mono',ui-monospace,monospace}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#2563eb;background-image:radial-gradient(640px 320px at 85% 0%,rgba(143,178,255,.55),transparent 70%),linear-gradient(165deg,#2f6bff 0%,#1d4ed8 55%,#1a3a9e 100%);background-attachment:fixed;color:#fff;font-family:var(--f-body);font-size:15px;line-height:1.5;min-height:100vh}
+.wrap{max-width:900px;margin:0 auto;padding:26px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+.nav{display:flex;align-items:center;justify-content:space-between;margin:0 0 30px}
+.nav b{font-family:var(--f-display);font-size:15px}
+.live{font-family:var(--f-mono);font-size:11px;color:#eafff3;display:flex;align-items:center;gap:7px}.live:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green)}
+.hd{text-align:center;margin:0 0 22px}
+.eyebrow{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:#dbe7ff;display:flex;align-items:center;justify-content:center;gap:12px}
+.eyebrow:before{content:"";width:34px;height:1px;background:currentColor;opacity:.6}
+h1{font-family:var(--f-display);font-weight:800;font-size:clamp(26px,4vw,40px);line-height:1.12;margin:10px 0 0;display:flex;align-items:center;justify-content:center;gap:12px}
+h1:before{content:"";width:12px;height:12px;border-radius:50%;background:var(--green);flex:none}
+.stage{padding:10px 0 30px;display:flex;justify-content:center}
+.card{width:100%;max-width:480px;background:#fff;color:var(--ink);border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(10,27,90,.35)}
+.steps{display:flex;gap:18px;justify-content:center;padding:16px;border-bottom:1px solid var(--line);font-size:13px;font-weight:500}
+.steps span{display:flex;align-items:center;gap:7px;color:#9aa4be}.steps i{width:9px;height:9px;border-radius:50%;background:#d6dcee}
+.steps span.on{color:var(--ink)}.steps span.on i{background:var(--blue)}
+.body{padding:20px 22px 24px}
+h2{font-family:var(--f-display);font-size:20px;line-height:1.25;margin:0 0 12px;font-weight:700}
+.rules{margin:0 0 16px;padding:0;list-style:none;display:grid;gap:8px;font-size:13px;color:#4a566f}
+.rules li{padding-left:16px;position:relative}.rules li:before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--blue)}
+.fld{margin:0 0 12px}
+.fld label{display:block;font-size:13.5px;font-weight:600;margin:0 0 6px;color:#18223c}
+.fld label .rq{color:var(--red)}
+.inp,select{width:100%;border:1px solid #d4dbee;background:#f8f9fc;border-radius:10px;padding:13px 14px;font:inherit;font-size:14.5px;color:var(--ink);outline:none;appearance:none;-webkit-appearance:none}
+select{background-image:linear-gradient(45deg,transparent 50%,#5a6684 50%),linear-gradient(135deg,#5a6684 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;background-size:6px 6px,6px 6px;background-repeat:no-repeat;padding-right:36px;color:#5a6684}
+select.has{color:var(--ink)}
+.inp:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.15);background-color:#fff}
+.ph{display:flex;border:1px solid #d4dbee;background:#f8f9fc;border-radius:10px;overflow:hidden}
+.ph:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.15);background:#fff}
+.ph select.cc{width:auto;border:0;border-right:1px solid #d4dbee;border-radius:0;background-color:transparent;padding:13px 26px 13px 12px;background-position:calc(100% - 14px) 50%,calc(100% - 9px) 50%;background-size:5px 5px,5px 5px;color:#18223c;box-shadow:none}
+.ph input{border:0;background:transparent;box-shadow:none;border-radius:0;flex:1;min-width:0}
+.ph input:focus{box-shadow:none}
+.more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s ease}
+.more>div{overflow:hidden;min-height:0}
+.more.open{grid-template-rows:1fr}
+@media(prefers-reduced-motion:reduce){.more{transition:none}}
+.btn{width:100%;border:0;border-radius:10px;background:var(--blue);color:#fff;font:600 15.5px var(--f-body);padding:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px}
+.btn:disabled{background:#9db8f5;cursor:not-allowed}
+.btn:focus-visible{outline:3px solid #9db8f5;outline-offset:2px}
+.err{color:var(--red);font-size:12.5px;margin:8px 0 0;min-height:18px}
+.legal{font-size:12px;color:#4a566f;margin:12px 0 0;line-height:1.5}.legal u{color:var(--ink);font-weight:500;text-decoration:underline}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.cal{padding:6px 22px 24px;position:relative}
+.cal .head{display:flex;justify-content:space-between;align-items:center;margin:10px 0 12px}
+.cal .head b{font-family:var(--f-display);font-weight:600;font-size:16px;color:#5a6684}
+.cal .arr{display:flex;gap:6px}.cal .arr button{width:34px;height:34px;border:1px solid var(--line);border-radius:8px;display:grid;place-items:center;color:#5a6684;background:#fff;font:inherit;font-size:16px;cursor:pointer;padding:0}
+.cal .arr button:disabled{color:#c9cfdf;cursor:default}
+.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;text-align:center}
+.grid .dw{font-size:11px;color:#9aa4be;font-weight:600;padding:4px 0}
+.grid button{border:0;background:transparent;font:inherit;font-size:15px;padding:11px 0;border-radius:10px;color:#b4bcd2;cursor:not-allowed}
+.grid button.av{background:#eef3ff;color:var(--royal);font-weight:600}
+.cal.on .grid button.av{cursor:pointer}.cal.on .grid button.av:hover{background:#dbe7ff}
+.cal.on .grid button.av.sel{background:var(--blue);color:#fff}
+.grid button:disabled{pointer-events:none}
+.cal:not(.on) .grid{opacity:.6}
+.tip{position:absolute;left:50%;transform:translateX(-50%);top:48%;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px rgba(15,26,61,.18);padding:14px 18px;font-size:14.5px;line-height:1.4;width:min(300px,calc(100% - 28px));text-align:center;color:var(--ink)}
+.cal.on .tip{display:none}
+.calmsg{font-size:13px;color:var(--text);margin:12px 0 0;text-align:center;min-height:18px}
+.slots{display:none;margin-top:14px;gap:8px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.slots.show{display:grid}
+.slots button{border:1px solid #bcd0f8;background:#fff;color:var(--royal);font:600 14px var(--f-body);padding:10px 0;border-radius:10px;cursor:pointer}
+.slots button.sel{background:var(--blue);color:#fff;border-color:var(--blue)}
+.slots-t{display:none;font-size:13px;color:var(--text);margin-top:14px}.slots-t.show{display:block}
+.slots-t small{display:block;color:#9aa4be;font-size:11.5px}
+.final{display:none;padding:34px 24px 38px;text-align:center}
+.final.show{display:block}
+.final .ok{width:54px;height:54px;border-radius:50%;background:#e6f9ee;color:#15a34a;display:grid;place-items:center;font-size:26px;margin:0 auto 12px}
+.final.no .ok{background:#eef3ff;color:var(--royal)}
+.final h3{font-family:var(--f-display);margin:0 0 6px;font-size:20px}
+.final p{margin:0;color:var(--text);font-size:14px}
+.warn{text-align:center;color:#e5ecff;font-size:13px;margin:20px auto 0;max-width:56ch}
+.foot{text-align:center;color:#c7d6ff;font-size:12px;margin-top:30px}
+input,select,button{touch-action:manipulation}
+@media(max-width:640px){
+.wrap{padding-top:16px;padding-bottom:28px}
+.nav{margin-bottom:18px}
+h1{font-size:clamp(24px,7vw,30px)}
+.stage{padding:4px 0 20px}
+.body{padding:18px 16px 20px}
+.inp,select,.ph input{font-size:16px!important}
+.inp,select{padding:14px}
+.btn{padding:16px;font-size:16px;min-height:52px}
+.cal{padding:6px 14px 20px}
+.grid{gap:4px}
+.grid button{padding:13px 0;font-size:16px}
+.slots button{padding:14px 0;font-size:15px}
+.cal .arr button{width:40px;height:40px}
+.eyebrow,.grid .dw{font-size:11.5px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="nav"><b>Matías Randazzo</b><span class="live">Agenda abierta</span></div>
+  <div class="hd">
+    <div class="eyebrow">Agendá tu llamada</div>
+    <h1>Elegí día y horario</h1>
+  </div>
+  <div class="stage">
+    <div class="card" id="card">
+      <div class="steps"><span class="on" id="s1"><i></i>Llená el formulario</span><span id="s2"><i></i>Reservá tu evento</span></div>
+      <div id="step1" class="body">
+        <h2>Llamada de diagnóstico | Método Acelerador de Ganancias</h2>
+        <ul class="rules">
+          <li>Tu información es confidencial, solo se usará para preparar tu llamada.</li>
+          <li>Confirmá por WhatsApp (obligatorio).</li>
+          <li>Reprogramá o cancelá con mínimo 6 hs de anticipación.</li>
+          <li>Conectate desde una computadora, en un lugar tranquilo.</li>
+        </ul>
+        <form id="f" novalidate>
+          <div class="fld"><div class="ph">
+            <select class="cc" id="cc" name="country" aria-label="Código de país">
+              <option value="54" selected>🇦🇷 +54</option><option value="598">🇺🇾 +598</option><option value="56">🇨🇱 +56</option><option value="595">🇵🇾 +595</option><option value="591">🇧🇴 +591</option><option value="51">🇵🇪 +51</option><option value="593">🇪🇨 +593</option><option value="57">🇨🇴 +57</option><option value="58">🇻🇪 +58</option><option value="52">🇲🇽 +52</option><option value="506">🇨🇷 +506</option><option value="507">🇵🇦 +507</option><option value="502">🇬🇹 +502</option><option value="503">🇸🇻 +503</option><option value="504">🇭🇳 +504</option><option value="505">🇳🇮 +505</option><option value="1809">🇩🇴 +1 809</option><option value="34">🇪🇸 +34</option><option value="1">🇺🇸 +1</option><option value="55">🇧🇷 +55</option>
+            </select>
+            <input class="inp" id="tel" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Tu WhatsApp" aria-label="WhatsApp, con código de área">
+          </div></div>
+          <div class="fld"><input class="inp" id="nom" name="name" type="text" autocomplete="name" placeholder="Nombre y apellido *" aria-label="Nombre y apellido"></div>
+          <div class="more" id="more"><div id="preguntas">
+            <div class="fld"><label for="mail">Correo electrónico <span class="rq">*</span></label><input class="inp" id="mail" name="email" type="email" autocomplete="email" placeholder="tu@email.com"></div>
+          </div></div>
+          <div class="hp" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></div>
+          <button class="btn" id="go" type="submit">Continuar <span aria-hidden="true">›</span></button>
+          <p class="err" id="err" role="alert"></p>
+          <p class="legal">Al introducir tu información, aceptás que tus datos se guarden conforme a los <u>Términos para invitados de nuestro proveedor</u> y <u>política de privacidad</u>.</p>
+        </form>
+      </div>
+      <div class="cal" id="cal">
+        <div class="head"><b id="mes">&nbsp;</b><div class="arr"><button type="button" id="prev" aria-label="Mes anterior">‹</button><button type="button" id="next" aria-label="Mes siguiente">›</button></div></div>
+        <div class="grid" id="grid"></div>
+        <p class="calmsg" id="calmsg"></p>
+        <div class="slots-t" id="slt">Horarios disponibles<small id="tzl"></small></div>
+        <div class="slots" id="slots"></div>
+        <button class="btn" id="book" type="button" style="display:none">Confirmar mi llamada</button>
+        <p class="err" id="err2" role="alert"></p>
+        <div class="tip" id="tip">Por favor completá el formulario antes de elegir tu franja horaria.</div>
+      </div>
+      <div class="final" id="final"><div class="ok" id="fok">✓</div><h3 id="ftit">¡Listo! Tu llamada quedó agendada</h3><p id="fmsg">Te confirmamos por WhatsApp.</p></div>
+    </div>
+  </div>
+  <p class="warn">Valoramos tu tiempo y el nuestro. Si vas a agendar para no asistir, por favor no agendes.</p>
+  <div class="foot">© 2026 Matías Randazzo. Todos los derechos reservados.</div>
+</div>
+<script>window.MEG_RESERVA_PREGUNTAS=__PREGUNTAS__;</script>
+<script src="/attribution.js"></script>
+<script src="/reservas.js"></script>
+</body>
+</html>

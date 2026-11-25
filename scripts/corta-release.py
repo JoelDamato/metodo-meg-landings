@@ -42,3 +42,6 @@ v['redirects']=[x for x in v.get('redirects',[]) if x.get('source')!='/reservas'
 if not v['redirects']:v.pop('redirects')
 (out/'vercel.json').write_text(json.dumps(v))
 print('Corta sin formulario; /reservas es una página aparte con el formulario.')
+
+import runpy
+runpy.run_path(str(root/"scripts/reservas-release.py"))
