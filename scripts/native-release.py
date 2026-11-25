@@ -37,11 +37,20 @@ for name in ['qualification.js','native-form.js']:shutil.copyfile(root/'web'/nam
 # Keep each campaign's message and attribution distinct.
 base=(out/'finanzas.html').read_text()
 variants={
- 'finanzas':('Ordená las finanzas de tu empresa y tomá decisiones con números claros','Conocé dónde ganás, dónde perdés y cuánto dinero queda realmente en tu negocio.'),
+ 'finanzas':('Profesionalizá las finanzas de tu empresa y hacela entre un 5 y un 15% más rentable en menos de 2 meses','Más de 400 empresas y pymes ya lo lograron, sin vender más ni subir precios.'),
  'costos':('Conocé tus costos reales y dejá de perder margen sin verlo','Identificá qué productos y gastos se llevan tu rentabilidad para decidir con información.'),
  'rentabilidad':('Encontrá oportunidades para mejorar la rentabilidad sin vender más','Revisá tus precios, costos y márgenes con el Método Acelerador de Ganancias.')}
 for route,(title,subtitle) in variants.items():
  s=BeautifulSoup(base,'html.parser');s.h1.string=title;s.title.string=title+' | MEG'
+ if route=='finanzas':
+  # Walter 24-11 (SOL-261124-08): promesa con el resultado resaltado y, después, directo el aviso rojo del video.
+  hl='entre un 5 y un 15% más rentable';a,b=title.split(hl)
+  s.h1.clear();s.h1.append(a);em=s.new_tag('em');em.string=hl;s.h1.append(em);s.h1.append(b)
+  video=s.select_one('#video')
+  for el in video.select(':scope > .eyebrow, :scope > h2'):el.decompose()
+  # VSL por vturb (código que pasó Walter), así no queda el link de YouTube.
+  site=json.loads((root/'config/site.json').read_text());vid=site['vslVturbPlayerId']
+  video.select_one('iframe.vsl-inline').replace_with(BeautifulSoup('<vturb-smartplayer id="vid-'+vid+'" style="display:block;margin:0 auto;width:100%"><div class="vturb-player-placeholder" style="position:relative;width:100%;padding:56.25% 0 0;z-index:0;background-color:black"></div></vturb-smartplayer><script async src="https://scripts.converteai.net/'+site['vturbAccountId']+'/players/'+vid+'/v4/player.js"></script>','html.parser'))
  hero=s.select_one('.hero');p=hero.find('p') if hero else None
  if p:p.string=subtitle
  for a in s.select('a[href]'):
