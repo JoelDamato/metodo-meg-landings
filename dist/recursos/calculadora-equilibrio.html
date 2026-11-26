@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de equilibrio · Método MEG</title>
+<meta name="description" content="Cargá los datos de tu negocio y del puesto, y mirá cuánto tiene que vender por mes la persona nueva para pagarse sola.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Calculadora de equilibrio · Método MEG">
+<meta property="og:description" content="Cargá los datos de tu negocio y del puesto, y mirá cuánto tiene que vender por mes la persona nueva para pagarse sola.">
+<meta property="og:url" content="https://metodo.matirandazzook.com/recursos/calculadora-equilibrio">
+<meta name="theme-color" content="#11181a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: herramienta de dos columnas (datos | resultado) que se apila en el celular; look oscuro único igual al de los videos. */
+:root{
+  color-scheme: dark;
+  --bg:#11181a; --bg-2:#1a2327; --glow:#212a30; --card:#243036; --line:#3a4850;
+  --fg:#f4f6f6; --muted:#9ba7ac; --dim:#62707a; --beige:#bcad95; --beige-ink:#1b1a14;
+  --neg:#d49585; --ok:#9cc3a4;
+  --display:"Montserrat","Helvetica Neue",Arial,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14.5px;line-height:1.5;
+  background-image:radial-gradient(ellipse 70% 45% at 50% 0%, var(--glow), var(--bg) 70%);background-attachment:fixed}
+.wrap{max-width:1120px;margin:0 auto;padding-block:32px 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--display);text-transform:uppercase;margin:0;text-wrap:balance}
+h1{font-size:clamp(26px,5vw,42px);font-weight:800;line-height:1.04}
+h1 span,h2 span{color:var(--beige)}
+h2{font-size:18px;font-weight:800;letter-spacing:.02em}
+h3{font-size:11.5px;font-weight:700;letter-spacing:.12em;color:var(--muted)}
+p{margin:0;max-width:68ch}
+.lead{color:var(--muted);font-size:15px}
+.eyebrow{font-family:var(--display);font-weight:700;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--beige)}
+.num{font-variant-numeric:tabular-nums}
+.layout{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:860px){.layout{grid-template-columns:1fr}}
+.panel{background:var(--bg-2);border:1px solid var(--line);padding:18px;display:flex;flex-direction:column;gap:18px;min-width:0}
+.form{position:sticky;top:max(12px,env(safe-area-inset-top,0px))}
+@media (max-width:860px){.form{position:static}}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--display);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--beige);padding:0;margin-bottom:4px}
+.f{display:grid;grid-template-columns:minmax(0,1fr) 128px;gap:10px;align-items:center}
+.f label{font-size:13px;color:var(--fg)}
+.f label small{display:block;color:var(--muted);font-size:11.5px;line-height:1.3}
+.in{display:flex;align-items:center;background:#0f1517;border:1px solid var(--line);border-radius:3px;min-width:0}
+.in:focus-within{border-color:var(--beige)}
+.in span{padding:0 8px;color:var(--muted);font-size:12.5px}
+.in input,.in select{flex:1;min-width:0;width:100%;background:transparent;border:0;color:var(--fg);font:600 14px var(--body);padding:8px 8px;text-align:right;font-variant-numeric:tabular-nums}
+.in select{text-align:left;padding-right:4px;appearance:auto}
+.in select option{background:var(--bg-2)}
+input:focus,select:focus{outline:none}
+.tog{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer}
+.tog input{accent-color:var(--beige);width:16px;height:16px}
+.reset{font-family:var(--display);font-weight:700;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;background:transparent;color:var(--muted);border:1px solid var(--line);padding:9px 12px;border-radius:3px;cursor:pointer;align-self:flex-start}
+.reset:hover{color:var(--fg);border-color:var(--beige)}
+button:focus-visible{outline:2px solid var(--beige);outline-offset:2px}
+.results{display:flex;flex-direction:column;gap:20px;min-width:0}
+.hero{display:flex;flex-direction:column;gap:8px;padding:22px;border:1px solid var(--line);
+  background:radial-gradient(ellipse 80% 90% at 30% 0%, var(--glow), var(--bg-2) 70%)}
+.hero .big{font-family:var(--display);font-weight:800;font-size:clamp(38px,7vw,64px);line-height:1;color:var(--beige);font-variant-numeric:tabular-nums}
+.hero .big.bad{color:var(--neg);font-size:clamp(26px,4.5vw,40px)}
+.hero .cap{font-family:var(--display);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.kpis div{background:var(--bg-2);padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpis strong{font-family:var(--display);font-size:19px;font-weight:800;font-variant-numeric:tabular-nums}
+.kpis span{font-size:11.5px;color:var(--muted)}
+.stair{display:flex;flex-direction:column}
+.st{display:grid;grid-template-columns:28px minmax(0,1fr) 92px;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);align-items:center}
+.st:last-child{border-bottom:0}
+.st .n{font-family:var(--display);font-weight:800;font-size:12px;color:var(--dim)}
+.st .lab{font-size:13px;min-width:0}
+.st .lab small{display:block;color:var(--muted);font-size:11.5px}
+.st .tr{grid-column:2/3;height:9px;background:#0e1416;position:relative;margin-top:6px}
+.st .tr i{position:absolute;inset:0 auto 0 0;background:var(--beige);transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.st .tr b{position:absolute;inset:0 auto 0 0;background:var(--dim)}
+.st .amt{text-align:right;font-family:var(--display);font-weight:800;font-variant-numeric:tabular-nums;font-size:15px}
+.st .amt small{display:block;font-size:10.5px;color:var(--beige);font-weight:700}
+.st.off{opacity:.38}
+.split{display:flex;height:40px;border:1px solid var(--line);font-family:var(--display);font-weight:800;font-size:11.5px;text-transform:uppercase;overflow:hidden}
+.split div{display:flex;align-items:center;padding-inline:8px;min-width:0;white-space:nowrap;overflow:hidden;transition:flex .5s}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.legend div{display:flex;flex-direction:column;gap:2px;font-size:12px;color:var(--muted)}
+.legend strong{font-family:var(--display);font-size:17px;color:var(--fg);font-variant-numeric:tabular-nums}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:baseline}
+.ramp{display:flex;align-items:flex-end;gap:3px;height:150px;border-bottom:1px solid var(--line);position:relative}
+.ramp .c{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;height:100%;position:relative;z-index:1}
+.ramp .c i{display:block;background:var(--neg);opacity:.85}
+.ramp .c i.ok{background:var(--beige)}
+.ramp .bl{position:absolute;left:0;right:0;border-top:1px dashed var(--muted);z-index:0}
+.ramp .bl b{position:absolute;left:0;top:-17px;font-size:10px;color:var(--muted);font-family:var(--display);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.rlab{display:flex;justify-content:space-between;font-size:10.5px;color:var(--dim)}
+.note{font-size:12px;color:var(--dim);line-height:1.5}
+.tips{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:13.5px}
+.tips li::marker{color:var(--beige)}
+footer{color:var(--dim);font-size:12px;border-top:1px solid var(--line);padding-top:16px;display:flex;flex-direction:column;gap:4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <div class="eyebrow">Herramienta · Antes de contratar</div>
+    <h1>¿Cuánto tiene que vender <span>para pagarse solo?</span></h1>
+    <p class="lead">Cargá los datos de tu negocio y del puesto. La calculadora suma cada costo, uno por uno, y te muestra cuánto tiene que vender por mes la persona nueva para no hacerte perder plata. Viene cargada con un ejemplo: una distribuidora que factura $230M por mes y contrata un preventista con $1.000.000 en mano.</p>
+  </header>
+
+  <div class="layout">
+    <form class="panel form" id="form" autocomplete="off">
+      <fieldset>
+        <legend>El puesto</legend>
+        <div class="f"><label for="neto">Sueldo fijo en mano<small>Lo que le llega por mes</small></label><div class="in"><span>$</span><input id="neto" inputmode="numeric" value="1.000.000"></div></div>
+        <div class="f"><label for="empresa">Tipo de empresa<small>Cambia las contribuciones</small></label><div class="in"><select id="empresa"><option value="0.24">PyME (24 %)</option><option value="0.264">Grande (26,4 %)</option></select></div></div>
+        <div class="f"><label for="extra">Aportes extra de convenio<small>Sindicato, FAECYS, etc.</small></label><div class="in"><input id="extra" inputmode="decimal" value="0"><span>%</span></div></div>
+        <div class="f"><label for="art">ART<small>Según rubro</small></label><div class="in"><input id="art" inputmode="decimal" value="2,5"><span>%</span></div></div>
+        <label class="tog"><input type="checkbox" id="sac" checked> Incluir aguinaldo (prorrateado)</label>
+        <div class="f"><label for="viat">Viáticos y movilidad<small>Rendidos con ticket</small></label><div class="in"><span>$</span><input id="viat" inputmode="numeric" value="425.000"></div></div>
+        <div class="f"><label for="com">Comisión sobre venta<small>Neta para el vendedor</small></label><div class="in"><input id="com" inputmode="decimal" value="2"><span>%</span></div></div>
+      </fieldset>
+      <fieldset>
+        <legend>Tu negocio</legend>
+        <div class="f"><label for="fact">Facturación actual<small>Por mes</small></label><div class="in"><span>$</span><input id="fact" inputmode="numeric" value="230.000.000"></div></div>
+        <div class="f"><label for="margen">Margen de contribución<small>Lo que te queda de cada $100 después de pagar la mercadería</small></label><div class="in"><input id="margen" inputmode="decimal" value="14"><span>%</span></div></div>
+        <div class="f"><label for="iibb">Ingresos Brutos + tasa<small>Sobre la venta</small></label><div class="in"><input id="iibb" inputmode="decimal" value="2,5"><span>%</span></div></div>
+        <div class="f"><label for="plazo">Plazo de cobro<small>Promedio de tus clientes</small></label><div class="in"><input id="plazo" inputmode="numeric" value="0"><span>días</span></div></div>
+        <div class="f"><label for="infl">Inflación mensual<small>Estimada</small></label><div class="in"><input id="infl" inputmode="decimal" value="2"><span>%</span></div></div>
+        <div class="f"><label for="flete">Fletes extra<small>Si tu logística no alcanza</small></label><div class="in"><input id="flete" inputmode="decimal" value="0"><span>%</span></div></div>
+      </fieldset>
+      <fieldset>
+        <legend>Arranque del vendedor</legend>
+        <div class="f"><label for="v1">Venta del mes 1<small>Con su cartera inicial</small></label><div class="in"><span>$</span><input id="v1" inputmode="numeric" value="8.000.000"></div></div>
+        <div class="f"><label for="crec">Crece por mes<small>Venta nueva que suma</small></label><div class="in"><span>$</span><input id="crec" inputmode="numeric" value="3.300.000"></div></div>
+      </fieldset>
+      <fieldset>
+        <legend>Impuestos sobre la ganancia</legend>
+        <div class="f"><label for="gan">Ganancias<small>Tu alícuota</small></label><div class="in"><input id="gan" inputmode="decimal" value="35"><span>%</span></div></div>
+        <label class="tog"><input type="checkbox" id="cheque" checked> Impuesto al cheque (1,2 %)</label>
+      </fieldset>
+      <button type="button" class="reset" id="reset">Volver al ejemplo</button>
+    </form>
+
+    <div class="results">
+      <div class="hero">
+        <div class="cap">Tiene que vender por mes para pagarse solo</div>
+        <div class="big" id="be">—</div>
+        <p class="lead" id="heroTxt"></p>
+      </div>
+      <div class="kpis">
+        <div><strong id="kCost">—</strong><span>Te cuesta el puesto por mes</span></div>
+        <div><strong id="kMult">—</strong><span>Veces su sueldo en mano</span></div>
+        <div><strong id="kMargin">—</strong><span>Te queda de cada $100 vendidos</span></div>
+        <div><strong id="kFact">—</strong><span>Más sobre tu facturación actual</span></div>
+        <div><strong id="kInfl">—</strong><span>Meta en pesos del mes 6, con inflación</span></div>
+      </div>
+
+      <section class="panel">
+        <h2>La escalera: <span>cómo sube el número</span></h2>
+        <p class="lead" style="font-size:13.5px">Cada fila suma un ítem al anterior. La barra gris es dónde estabas antes y la beige, cuánto subió.</p>
+        <div class="stair" id="stair"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Los primeros meses: <span>la plata que ponés vos</span></h2>
+        <div class="kpis">
+          <div><strong id="rMes">—</strong><span>Mes en que llega al equilibrio</span></div>
+          <div><strong id="rInv" style="color:var(--neg)">—</strong><span>Plata que ponés hasta ese mes</span></div>
+          <div><strong id="rRec">—</strong><span>Mes en que recuperás lo invertido</span></div>
+        </div>
+        <div class="ramp" id="ramp"></div>
+        <div class="rlab"><span>Mes 1</span><span id="rLast">Mes 24</span></div>
+        <p class="note">Barras: resultado de cada mes (rojo pérdida, beige ganancia), con la venta creciendo lo que cargaste. En pesos de hoy, sin inflación. Comisión y margen como en la escalera.</p>
+      </section>
+
+      <section class="panel">
+        <h2>¿Quién se queda <span>con cada millón extra?</span></h2>
+        <p class="lead" style="font-size:13.5px">Pasado el equilibrio, por cada $1.000.000 más que vende el puesto. La mercadería ya está descontada en el margen.</p>
+        <div class="split" id="split"></div>
+        <div class="legend" id="legend"></div>
+        <p class="note">Estado: Ingresos Brutos y tasa, cargas sobre la comisión, impuesto al cheque y Ganancias. El IVA no entra porque lo paga el cliente. Los fletes van al transportista.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Antes de <span>firmar</span></h2>
+        <ul class="tips" id="tips">
+          <li>Pagá la comisión sobre lo cobrado, no sobre lo facturado.</li>
+          <li>Pactá los viáticos en litros de combustible con ticket, no en pesos fijos: así no pagan cargas y acompañan los precios solos.</li>
+          <li>Poné las metas en bultos o unidades, o ajustadas por inflación; un número fijo en pesos se cumple solo con el paso del tiempo.</li>
+          <li>Cobrá recargo por plazo de al menos la inflación del mes.</li>
+          <li>Revisá a los 3 meses: si la venta no va camino al equilibrio, mirá zona, precio o desempeño antes de seguir.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    <span>Estimación orientativa para empresas argentinas fuera de convenio, nov. 2026. Aportes 17 % · ART + $2.000 fijos · seguro de vida $425 · sin detracción de la base imponible. No reemplaza el cálculo de tu contador.</span>
+  </footer>
+</div>
+
+<script>
+/*CALC-START*/
+function calc(p){
+  const AP = 0.17 + p.extra;                 // aportes del empleado
+  const bruto = p.neto/(1-AP);
+  const carga = p.cp + p.art;                 // cargas del empleador sobre bruto
+  const cMes = bruto*(1+carga) + 2000 + 425;
+  const sac = p.sac ? (bruto/12)*(1+carga) : 0;
+  const total = cMes + sac + p.viat;
+  const comCost = p.com/(1-AP)*(1+carga);     // costo empresa de la comisión
+  const plazoCost = p.infl*p.plazo/30;
+  const m0 = p.margen, m1 = m0-p.iibb, m2 = m1-comCost, m3 = m2-plazoCost, m4 = m3-p.flete;
+  const be = (c,m) => m>0 ? c/m : Infinity;
+  const inflF = Math.pow(1+p.infl,5);
+  const steps = [
+    {k:'Sueldo en mano', d:'Lo que calcula casi todo el mundo', v:be(p.neto,m0)},
+    {k:'Aportes del empleado', d:'Bruto '+money(bruto), v:be(bruto,m0)},
+    {k:'Cargas patronales, ART y seguro', d:'Costo '+money(cMes), v:be(cMes,m0)},
+    {k:'Aguinaldo prorrateado', d:p.sac?'+'+money(sac)+' por mes':'No incluido', v:be(cMes+sac,m0), off:!p.sac},
+    {k:'Viáticos y movilidad', d:'+'+money(p.viat), v:be(total,m0), off:!p.viat},
+    {k:'Ingresos Brutos y tasa', d:'Margen '+pct(m0)+' → '+pct(m1), v:be(total,m1)},
+    {k:'Comisión con cargas', d:'Margen '+pct(m1)+' → '+pct(m2), v:be(total,m2), off:!p.com},
+    {k:'Plazo de cobro', d:p.plazo?p.plazo+' días: margen → '+pct(m3):'Contado', v:be(total,m3), off:!p.plazo},
+    {k:'Fletes extra', d:p.flete?'Margen → '+pct(m4):'Sin fletes extra', v:be(total,m4), off:!p.flete},
+    {k:'Inflación hasta el mes 6', d:'+'+pct(inflF-1).replace(' %','')+' % en pesos', v:be(total,m4)*inflF}
+  ];
+  const BE = be(total,m4);
+  // reparto de cada millón extra
+  const M = 1e6, ganOwner = m4*M;
+  const cheque = p.cheque ? 0.012*M : 0;
+  const comBr = p.com*M/(1-AP);
+  const estCom = comBr*(AP+p.cp);
+  const pre = ganOwner - cheque;
+  const gan = Math.max(0,pre)*p.gan;
+  const split = {estado: p.iibb*M + estCom + cheque + gan, duenio: pre-gan, vendedor: p.com*M, flete: p.flete*M + plazoCost*M};
+  // rampa
+  const months=[]; let acc=0, minAcc=0, beMonth=null, payback=null;
+  for(let i=0;i<24;i++){
+    const s = p.v1 + p.crec*i;
+    const r = s*m4 - total; acc += r; minAcc = Math.min(minAcc,acc);
+    if(beMonth===null && r>=0) beMonth=i+1;
+    if(payback===null && beMonth!==null && acc>=0) payback=i+1;
+    months.push(r);
+  }
+  return {bruto,cMes,sac,total,m0,m1,m2,m3,m4,steps,BE,inflF,split,months,minAcc,beMonth,payback};
+}
+function money(v){ return '$'+Math.round(v).toLocaleString('es-AR'); }
+function pct(v){ return (v*100).toLocaleString('es-AR',{maximumFractionDigits:2})+' %'; }
+/*CALC-END*/
+
+(function(){
+  const $=id=>document.getElementById(id);
+  const DEF={neto:'1.000.000',empresa:'0.24',extra:'0',art:'2,5',sac:true,viat:'425.000',com:'2',fact:'230.000.000',margen:'14',iibb:'2,5',plazo:'0',infl:'2',flete:'0',v1:'8.000.000',crec:'3.300.000',gan:'35',cheque:true};
+  const num = s => { const v=parseFloat(String(s).replace(/\./g,'').replace(',','.')); return isFinite(v)?v:0; };
+  const fmtM = v => !isFinite(v) ? '∞' : '$'+(v/1e6).toLocaleString('es-AR',{minimumFractionDigits:1,maximumFractionDigits:1})+'M';
+  const money2 = v => (v<0?'−':'')+'$'+Math.abs(Math.round(v)).toLocaleString('es-AR');
+  function read(){
+    return {neto:num($('neto').value), cp:parseFloat($('empresa').value), extra:num($('extra').value)/100, art:num($('art').value)/100,
+      sac:$('sac').checked, viat:num($('viat').value), com:num($('com').value)/100, fact:num($('fact').value),
+      margen:num($('margen').value)/100, iibb:num($('iibb').value)/100, plazo:num($('plazo').value), infl:num($('infl').value)/100,
+      flete:num($('flete').value)/100, v1:num($('v1').value), crec:num($('crec').value), gan:num($('gan').value)/100, cheque:$('cheque').checked};
+  }
+  function render(){
+    const p=read(), r=calc(p);
+    const ok=isFinite(r.BE);
+    $('be').textContent = ok ? fmtM(r.BE) : 'No se paga nunca';
+    $('be').classList.toggle('bad',!ok);
+    $('heroTxt').textContent = ok
+      ? 'Con '+money(p.neto)+' en mano, el puesto te cuesta '+money(r.total)+' por mes. De cada $100 que vende te quedan $'+(r.m4*100).toLocaleString('es-AR',{maximumFractionDigits:2})+'. Si creías que alcanzaba con '+fmtM(r.steps[0].v)+', te faltaban '+fmtM(r.BE-r.steps[0].v)+'.'
+      : 'Con estos datos el margen que deja cada venta es cero o negativo: cuanto más vende, más perdés. Revisá comisión, plazo de cobro o fletes.';
+    $('kCost').textContent=money(r.total);
+    $('kMult').textContent=(r.total/p.neto).toLocaleString('es-AR',{maximumFractionDigits:2})+'×';
+    $('kMargin').textContent='$'+(r.m4*100).toLocaleString('es-AR',{maximumFractionDigits:2});
+    $('kFact').textContent= ok&&p.fact ? '+'+(r.BE/p.fact*100).toLocaleString('es-AR',{maximumFractionDigits:1})+' %' : '—';
+    $('kInfl').textContent= ok ? fmtM(r.steps[9].v) : '—';
+    // stair
+    const fin=r.steps.filter(s=>isFinite(s.v)), max=Math.max(...fin.map(s=>s.v),1);
+    $('stair').innerHTML = r.steps.map((s,i)=>{
+      const prev = i? r.steps[i-1].v : 0;
+      const w = isFinite(s.v)? s.v/max*100 : 100, pw = isFinite(prev)? Math.min(prev,s.v)/max*100 : 100;
+      const delta = i && isFinite(s.v) && isFinite(prev) && s.v-prev>1 ? '+'+fmtM(s.v-prev) : '';
+      return '<div class="st'+(s.off?' off':'')+'"><span class="n">'+String(i+1).padStart(2,'0')+'</span><div class="lab">'+s.k+'<small>'+s.d+'</small><div class="tr"><i style="width:'+w+'%"></i><b style="width:'+(i?pw:0)+'%"></b></div></div><div class="amt">'+fmtM(s.v)+'<small>'+delta+'</small></div></div>';
+    }).join('');
+    // split
+    const sp=r.split, parts=[['Estado',sp.estado,'#5d6a70','var(--fg)'],['Vos',Math.max(0,sp.duenio),'var(--beige)','var(--beige-ink)'],['Vendedor',sp.vendedor,'#3a4850','var(--fg)'],['Plazo y fletes',sp.flete,'#2a353b','var(--muted)']].filter(x=>x[1]>0);
+    $('split').innerHTML = parts.map(x=>'<div style="flex:'+x[1]+';background:'+x[2]+';color:'+x[3]+'">'+x[0]+'</div>').join('');
+    $('legend').innerHTML = [['Estado',sp.estado,'#5d6a70'],['Vos (dueño)',sp.duenio,'var(--beige)'],['Vendedor',sp.vendedor,'#3a4850'],['Plazo y fletes',sp.flete,'#2a353b']].map(x=>'<div><span><i style="background:'+x[2]+'"></i>'+x[0]+'</span><strong>'+money2(x[1])+'</strong></div>').join('');
+    // ramp
+    const mx=Math.max(...r.months.map(Math.abs),1);
+    const posMax=Math.max(0,...r.months), negMax=Math.max(0,...r.months.map(v=>-v));
+    const scale=posMax+negMax||1;
+    const zero = negMax/scale*100;
+    $('ramp').innerHTML = '<div class="bl" style="bottom:'+zero+'%"><b>Equilibrio</b></div>' + r.months.map(v=>{
+      const h=Math.abs(v)/scale*100;
+      return '<div class="c"><i class="'+(v>=0?'ok':'')+'" style="position:absolute;left:0;right:0;bottom:'+(v>=0?zero:zero-h)+'%;height:'+h+'%" title="'+money2(v)+'"></i></div>';
+    }).join('');
+    $('rMes').textContent = r.beMonth ? 'Mes '+r.beMonth : 'Más de 24';
+    $('rInv').textContent = money2(r.minAcc);
+    $('rRec').textContent = r.payback ? 'Mes '+r.payback : 'Más de 24';
+  }
+  function fmtInput(e){
+    const el=e.target; if(!['neto','viat','fact','v1','crec'].includes(el.id)) return;
+    const raw=el.value.replace(/\D/g,''); el.value = raw ? Number(raw).toLocaleString('es-AR') : '';
+  }
+  function save(){ try{ const o={}; Object.keys(DEF).forEach(k=>{const el=$(k); o[k]= el.type==='checkbox'?el.checked:el.value}); localStorage.setItem('calc-eq',JSON.stringify(o)); }catch(e){} }
+  function load(o){ Object.keys(DEF).forEach(k=>{const el=$(k); if(el.type==='checkbox') el.checked=!!o[k]; else el.value=o[k]}); }
+  try{ const s=JSON.parse(localStorage.getItem('calc-eq')||'null'); if(s) load(Object.assign({},DEF,s)); }catch(e){}
+  $('form').addEventListener('input',e=>{fmtInput(e);render();save()});
+  $('form').addEventListener('change',()=>{render();save()});
+  $('form').addEventListener('submit',e=>e.preventDefault());
+  $('reset').addEventListener('click',()=>{load(DEF);render();save()});
+  render();
+})();
+</script>
+</body>
+</html>

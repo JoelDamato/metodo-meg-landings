@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía antes de contratar · Método MEG</title>
+<meta name="description" content="Los 10 costos que tenés que sumar antes de incorporar a alguien a tu equipo comercial, y las reglas para que no te coma el margen.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Guía antes de contratar · Método MEG">
+<meta property="og:description" content="Los 10 costos que tenés que sumar antes de incorporar a alguien a tu equipo comercial, y las reglas para que no te coma el margen.">
+<meta property="og:url" content="https://metodo.matirandazzook.com/recursos/guia-equilibrio">
+<meta name="theme-color" content="#11181a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: guía de lectura en una columna angosta, con fichas numeradas por ítem; mismo look oscuro que los videos y la calculadora. */
+:root{
+  color-scheme: dark;
+  --bg:#11181a; --bg-2:#1a2327; --glow:#212a30; --line:#3a4850;
+  --fg:#f4f6f6; --muted:#a3aeb3; --dim:#66737b; --beige:#bcad95; --beige-ink:#1b1a14; --neg:#d49585;
+  --display:"Montserrat","Helvetica Neue",Arial,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.62;
+  background-image:radial-gradient(ellipse 70% 40% at 50% 0%, var(--glow), var(--bg) 70%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding-block:44px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:52px}
+h1,h2,h3{font-family:var(--display);text-transform:uppercase;margin:0;text-wrap:balance}
+h1{font-size:clamp(30px,6.4vw,50px);font-weight:800;line-height:1.02}
+h1 span,h2 span{color:var(--beige)}
+h2{font-size:clamp(21px,3.6vw,27px);font-weight:800;line-height:1.12}
+h3{font-size:15px;font-weight:800;letter-spacing:.02em}
+p{margin:0}
+.eyebrow{font-family:var(--display);font-weight:700;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--beige)}
+.lead{color:var(--muted);font-size:17px}
+section{display:flex;flex-direction:column;gap:18px}
+.num{font-variant-numeric:tabular-nums}
+strong{color:var(--fg)}
+.cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;border:1px solid var(--beige);padding:18px 20px;background:var(--bg-2)}
+.cta p{font-size:14.5px;color:var(--muted);max-width:44ch}
+.cta a{font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;background:var(--beige);color:var(--beige-ink);text-decoration:none;padding:12px 18px;border-radius:3px;white-space:nowrap}
+.cta a:focus-visible,a:focus-visible{outline:2px solid var(--beige);outline-offset:2px}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.compare div{background:var(--bg-2);padding:16px;display:flex;flex-direction:column;gap:4px}
+.compare strong{font-family:var(--display);font-size:30px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.compare span{font-size:13px;color:var(--muted)}
+.formula{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(15px,2.6vw,19px);text-align:center;padding:20px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);line-height:1.5}
+.formula span{color:var(--beige)}
+.formula small{display:block;font-family:var(--body);text-transform:none;font-weight:500;font-size:13px;color:var(--muted);margin-top:6px}
+.items{display:flex;flex-direction:column;gap:14px}
+.item{display:grid;grid-template-columns:52px minmax(0,1fr);gap:16px;padding:18px;background:var(--bg-2);border:1px solid var(--line)}
+.item .n{font-family:var(--display);font-weight:800;font-size:28px;color:var(--beige);line-height:1}
+.item .body{display:flex;flex-direction:column;gap:8px;min-width:0}
+.item p{font-size:15px;color:var(--muted)}
+.item .row{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px}
+.item .row b{font-family:var(--display);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);display:block}
+.item .row div{min-width:0}
+.item .row .be{color:var(--beige);font-weight:700;font-variant-numeric:tabular-nums}
+.item .warn{font-size:13.5px;border-left:2px solid var(--neg);padding-left:10px;color:var(--fg)}
+.item .warn::before{content:"Error común: ";color:var(--neg);font-weight:600}
+@media (max-width:520px){.item{grid-template-columns:1fr;gap:8px}}
+.tbl{overflow-x:auto;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:480px;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font-family:var(--display);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--bg-2)}
+tr:last-child td{border-bottom:0}
+td.t{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+td.n{color:var(--neg)}
+td.b{color:var(--beige)}
+.rules{counter-reset:r;display:flex;flex-direction:column;gap:12px;list-style:none;margin:0;padding:0}
+.rules li{counter-increment:r;display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px}
+.rules li::before{content:counter(r);font-family:var(--display);font-weight:800;font-size:15px;color:var(--beige-ink);background:var(--beige);width:28px;height:28px;display:grid;place-items:center;border-radius:2px}
+.rules li span{color:var(--muted);font-size:15px}
+.check{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line)}
+.check label{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-bottom:1px solid var(--line);cursor:pointer;font-size:15px}
+.check label:last-child{border-bottom:0}
+.check input{accent-color:var(--beige);width:18px;height:18px;margin-top:3px;flex:none}
+.check input:checked + span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--beige)}
+.progress{font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.progress b{color:var(--beige)}
+.split{display:flex;height:42px;border:1px solid var(--line);font-family:var(--display);font-weight:800;font-size:12px;text-transform:uppercase;overflow:hidden}
+.split div{display:flex;align-items:center;padding-inline:10px;white-space:nowrap;overflow:hidden;min-width:0}
+footer{color:var(--dim);font-size:12.5px;border-top:1px solid var(--line);padding-top:16px;display:flex;flex-direction:column;gap:4px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header style="display:flex;flex-direction:column;gap:16px">
+  <div class="eyebrow">Guía · Antes de contratar</div>
+  <h1>Cuánto tiene que vender <span>para pagarse solo</span></h1>
+  <p class="lead">Los 10 ítems que tenés que sumar antes de incorporar a alguien a tu equipo comercial, cómo se calcula cada uno y las reglas para que la contratación no te coma el margen. Con un ejemplo real en pesos: una distribuidora que factura $230 millones por mes y suma un preventista.</p>
+  <div class="cta">
+    <p>Cargá tus propios números en la calculadora mientras leés: hace todas estas cuentas sola.</p>
+    <a href="/recursos/calculadora-equilibrio" target="_blank" rel="noopener">Abrir la calculadora</a>
+  </div>
+</header>
+
+<section>
+  <div class="eyebrow">El problema</div>
+  <h2>La cuenta que hace <span>todo el mundo</span></h2>
+  <p>Le vas a pagar $1.000.000 por mes. Tu margen es del 14 %. Hacés la división rápida: $1.000.000 ÷ 14 % = $7,1 millones. "Si vende siete millones, se paga solo."</p>
+  <p>Esa cuenta deja afuera nueve cosas. Cuando las sumás, el número real es más del triple.</p>
+  <div class="compare">
+    <div><strong class="num">$7,1M</strong><span>Lo que parece</span></div>
+    <div><strong class="num" style="color:var(--beige)">$24,6M</strong><span>Lo real, cobrando de contado</span></div>
+    <div><strong class="num" style="color:var(--neg)">$51,5M</strong><span>Cobrando a 30 días y pagando fletes</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">La fórmula</div>
+  <h2>Una sola <span>división</span></h2>
+  <div class="formula">Costo total del puesto por mes <span>÷</span> lo que te queda limpio de cada venta<small>El truco está en no olvidarte nada arriba (costo) y nada abajo (lo que se come el margen).</small></div>
+</section>
+
+<section>
+  <div class="eyebrow">Paso a paso</div>
+  <h2>Los 10 ítems que <span>suben el número</span></h2>
+  <p style="color:var(--muted)">Del 1 al 5 suben el costo. Del 6 al 10 achican lo que te queda de cada venta. Al lado de cada uno: cuánto tiene que vender por mes, en el ejemplo, después de sumarlo.</p>
+  <div class="items">
+    <div class="item"><div class="n">01</div><div class="body">
+      <h3>Sueldo en mano</h3>
+      <p>Lo que le llega al vendedor por mes. Es el punto de partida, no el costo.</p>
+      <div class="row"><div><b>Ejemplo</b>$1.000.000</div><div><b>Tiene que vender</b><span class="be">$7,1M</span></div></div>
+    </div></div>
+    <div class="item"><div class="n">02</div><div class="body">
+      <h3>Aportes del empleado</h3>
+      <p>Jubilación 11 %, PAMI 3 % y obra social 3 % se descuentan del bruto. Para que le lleguen $1.000.000, el bruto es neto ÷ 0,83.</p>
+      <div class="row"><div><b>Ejemplo</b>Bruto $1.204.819</div><div><b>Tiene que vender</b><span class="be">$8,6M</span></div></div>
+      <div class="warn">Pactar "un millón" sin aclarar si es en mano o bruto. Hay $204.819 de diferencia.</div>
+    </div></div>
+    <div class="item"><div class="n">03</div><div class="body">
+      <h3>Cargas patronales, ART y seguro</h3>
+      <p>Sobre el bruto pagás contribuciones (24 % en PyME, 26,4 % en empresa grande), ART (2,5 % más un fijo, según rubro) y el seguro de vida obligatorio.</p>
+      <div class="row"><div><b>Ejemplo</b>+$321.702 → $1.526.521</div><div><b>Tiene que vender</b><span class="be">$10,9M</span></div></div>
+    </div></div>
+    <div class="item"><div class="n">04</div><div class="body">
+      <h3>Aguinaldo</h3>
+      <p>Un sueldo más por año, con sus cargas. Repartilo en los 12 meses para no llevarte la sorpresa en junio y diciembre.</p>
+      <div class="row"><div><b>Ejemplo</b>+$127.008 por mes</div><div><b>Tiene que vender</b><span class="be">$11,8M</span></div></div>
+    </div></div>
+    <div class="item"><div class="n">05</div><div class="body">
+      <h3>Viáticos y movilidad</h3>
+      <p>Nafta, desgaste del vehículo, peajes, comida. Con utilitario propio en ciudad suele ir de $350.000 a $500.000 por mes.</p>
+      <div class="row"><div><b>Ejemplo</b>+$425.000 → $2.078.529</div><div><b>Tiene que vender</b><span class="be">$14,8M</span></div></div>
+      <div class="warn">Pagarlos como monto fijo sin comprobantes: pasan a ser remunerativos y pagás un 52,7 % más de cargas.</div>
+    </div></div>
+    <div class="item"><div class="n">06</div><div class="body">
+      <h3>Ingresos Brutos y tasa municipal</h3>
+      <p>Se cobran sobre la venta, no sobre la ganancia. Restalos del margen antes de dividir.</p>
+      <div class="row"><div><b>Ejemplo</b>Margen 14 % → 11,5 %</div><div><b>Tiene que vender</b><span class="be">$18,1M</span></div></div>
+    </div></div>
+    <div class="item"><div class="n">07</div><div class="body">
+      <h3>Comisión con sus cargas</h3>
+      <p>La comisión también lleva aportes y contribuciones. Un 2 % neto para el vendedor le cuesta a la empresa un 3,05 % de cada venta.</p>
+      <div class="row"><div><b>Ejemplo</b>Margen 11,5 % → 8,45 %</div><div><b>Tiene que vender</b><span class="be">$24,6M</span></div></div>
+      <div class="warn">Restar el 2 % y no el 3,05 %.</div>
+    </div></div>
+    <div class="item"><div class="n">08</div><div class="body">
+      <h3>Inflación</h3>
+      <p>Si la meta está en pesos fijos, a los 6 meses se cumple sola. Al 2 % mensual, la meta del mes 6 es un 10,4 % más alta.</p>
+      <div class="row"><div><b>Ejemplo</b>+10,4 % al mes 6</div><div><b>Tiene que vender</b><span class="be">$27,2M</span></div></div>
+    </div></div>
+    <div class="item"><div class="n">09</div><div class="body">
+      <h3>Plazo de cobro</h3>
+      <p>Cada mes que tardás en cobrar sin recargo, la inflación se come ese porcentaje de la venta. A 15 días perdés 1 %, a 30 días 2 %, a 60 días 4 %.</p>
+      <div class="row"><div><b>Ejemplo</b>30 días: margen → 6,45 %</div><div><b>Tiene que vender</b><span class="be">$35,6M</span></div></div>
+      <div class="warn">Pagar la comisión sobre lo facturado: le pagás por ventas que todavía no cobraste.</div>
+    </div></div>
+    <div class="item"><div class="n">10</div><div class="body">
+      <h3>Capacidad logística</h3>
+      <p>Si las ventas nuevas entran en tus camiones y rutas actuales, el reparto extra cuesta casi cero. Si no entran, cada flete se come margen.</p>
+      <div class="row"><div><b>Ejemplo</b>Fletes 2 %: margen → 4,45 %</div><div><b>Tiene que vender</b><span class="be">$51,5M</span></div></div>
+    </div></div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">El ítem que nadie cuenta</div>
+  <h2>El tiempo: <span>vos ponés la plata primero</span></h2>
+  <p>Un vendedor nuevo tarda entre 3 y 6 meses en armar cartera. Mientras tanto, la diferencia la ponés vos. En el ejemplo, con una venta que arranca en $8M y crece hasta $24,5M:</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Mes</th><th>Vende</th><th>Resultado del mes</th><th>Acumulado</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="t">$8,0M</td><td class="t n">−$1.341.421</td><td class="t n">−$1.341.421</td></tr>
+      <tr><td>2</td><td class="t">$11,0M</td><td class="t n">−$1.065.005</td><td class="t n">−$2.406.426</td></tr>
+      <tr><td>3</td><td class="t">$14,5M</td><td class="t n">−$742.520</td><td class="t n">−$3.148.947</td></tr>
+      <tr><td>4</td><td class="t">$18,0M</td><td class="t n">−$420.035</td><td class="t n">−$3.568.982</td></tr>
+      <tr><td>5</td><td class="t">$21,5M</td><td class="t n">−$261.391</td><td class="t n">−$3.830.373</td></tr>
+      <tr><td>6</td><td class="t">$24,5M</td><td class="t n">−$7.837</td><td class="t b">−$3.838.210</td></tr>
+    </tbody>
+  </table></div>
+  <p style="color:var(--muted);font-size:14px">Comisión del 1,5 % hasta $20M y del 2 % después, en pesos de hoy. Tené esa plata disponible antes de contratar, o la vas a sacar de la caja del negocio.</p>
+</section>
+
+<section>
+  <div class="eyebrow">Tu socio número 1</div>
+  <h2>Quién se queda <span>con cada millón extra</span></h2>
+  <p>Pasado el equilibrio, por cada $1.000.000 más que vende el puesto:</p>
+  <div class="split">
+    <div style="flex:72.3;background:#5d6a70">Estado $72.255</div>
+    <div style="flex:47.1;background:var(--beige);color:var(--beige-ink)">Vos $47.125</div>
+    <div style="flex:20;background:#3a4850">$20.000</div>
+  </div>
+  <p style="color:var(--muted);font-size:15px">El Estado (Ingresos Brutos, tasa, cargas de la comisión, impuesto al cheque y Ganancias al 35 %) se lleva la porción más grande y no pone los $3,8M de arranque, no corre el riesgo de que el vendedor no venda ni absorbe la mora. El vendedor se lleva $20.000 de comisión además de su fijo. Saber esto antes de contratar cambia cuánto podés pagar y cuánto tiene que vender.</p>
+</section>
+
+<section>
+  <div class="eyebrow">Antes de firmar</div>
+  <h2>8 reglas para <span>proteger el margen</span></h2>
+  <ol class="rules">
+    <li><span><strong>Usá el período de prueba</strong> para evaluar si sigue la curva de crecimiento, con objetivos por escrito desde el día uno.</span></li>
+    <li><span><strong>Comisión sobre lo cobrado</strong>, no sobre lo facturado. Si la factura entra en mora, la comisión se descuenta.</span></li>
+    <li><span><strong>Escalones de comisión con piso</strong>: un porcentaje menor por mantener clientes que ya tenías y uno mayor por clientes nuevos o por venta arriba de un piso.</span></li>
+    <li><span><strong>Viáticos en litros, no en pesos</strong>: un tope de litros por mes rendido con ticket. Acompaña al precio del surtidor y no paga cargas.</span></li>
+    <li><span><strong>Metas en bultos o unidades</strong>, o en pesos ajustados por inflación. Un número fijo en pesos se cumple solo.</span></li>
+    <li><span><strong>Recargo por plazo</strong> de al menos la inflación mensual y un tope de días por cliente.</span></li>
+    <li><span><strong>Control al mes 3</strong>: si no va camino al equilibrio, revisá zona, precio o desempeño antes de seguir invirtiendo.</span></li>
+    <li><span><strong>Mirá tus camiones</strong>: cuando el puesto pase cierto volumen, chequeá la ocupación del reparto antes de que los fletes extra te coman el margen.</span></li>
+  </ol>
+</section>
+
+<section>
+  <div class="eyebrow">Checklist</div>
+  <h2>Antes de contratar, <span>tengo que saber…</span></h2>
+  <div class="progress" id="prog"><b>0</b> de 10 listos</div>
+  <div class="check" id="check">
+    <label><input type="checkbox" id="c1"><span>Si el sueldo que ofrezco es en mano o bruto, y cuánto es el bruto.</span></label>
+    <label><input type="checkbox" id="c2"><span>El costo total del puesto por mes, con cargas, ART, seguro y aguinaldo.</span></label>
+    <label><input type="checkbox" id="c3"><span>Cuánto voy a reconocer de viáticos y cómo se rinden.</span></label>
+    <label><input type="checkbox" id="c4"><span>Mi margen real después de Ingresos Brutos y tasa.</span></label>
+    <label><input type="checkbox" id="c5"><span>Cuánto me cuesta la comisión con sus cargas.</span></label>
+    <label><input type="checkbox" id="c6"><span>A cuántos días me pagan los clientes que va a traer.</span></label>
+    <label><input type="checkbox" id="c7"><span>Si mi logística actual banca las ventas nuevas.</span></label>
+    <label><input type="checkbox" id="c8"><span>Cuánto tiene que vender por mes para pagarse solo.</span></label>
+    <label><input type="checkbox" id="c9"><span>Cuánta plata voy a poner hasta que llegue al equilibrio, y si la tengo.</span></label>
+    <label><input type="checkbox" id="c10"><span>Qué voy a revisar en el mes 3 y qué hago si no llega.</span></label>
+  </div>
+  <div class="cta">
+    <p>¿Te falta algún número? La calculadora te los da todos con tus datos.</p>
+    <a href="/recursos/calculadora-equilibrio" target="_blank" rel="noopener">Calcular mi caso</a>
+  </div>
+</section>
+
+<footer>
+  <span>Ejemplo: distribuidora de Capital, $230M de facturación mensual, margen de contribución 14 %, preventista con $1.000.000 en mano, comisión 2 %, Kangoo propia. Noviembre de 2026.</span>
+  <span>Estimación orientativa para PyME fuera de convenio. Si el puesto entra en un convenio colectivo (Comercio 130/75, Viajantes 308/75) cambian el piso y los aportes. Validá tu caso con tu contador.</span>
+</footer>
+</div>
+
+<script>
+(function(){
+  const boxes=[...document.querySelectorAll('#check input')];
+  const prog=document.getElementById('prog');
+  function upd(){ const n=boxes.filter(b=>b.checked).length; prog.innerHTML='<b>'+n+'</b> de '+boxes.length+' listos'; try{localStorage.setItem('guia-eq',JSON.stringify(boxes.map(b=>b.checked)))}catch(e){} }
+  try{ const s=JSON.parse(localStorage.getItem('guia-eq')||'null'); if(Array.isArray(s)) boxes.forEach((b,i)=>b.checked=!!s[i]); }catch(e){}
+  boxes.forEach(b=>b.addEventListener('change',upd)); upd();
+})();
+</script>
+</body>
+</html>
